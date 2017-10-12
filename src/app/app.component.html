@@ -3,4 +3,7 @@
     <h1>
         Welcome to {{title}}
     </h1>
+    <span *ngFor="let sound of sounds">
+        <a (click)="onPlay(sound)" href="#son/{{slug}}" role="button" class="btn btn-primary">{{sound.name}}</a>
+    </span>
 </div>
