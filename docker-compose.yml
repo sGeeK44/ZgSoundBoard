@@ -1,0 +1,21 @@
+mongo:
+    image: mongo
+back:
+    build: ./back
+    volumes:
+      - ./back:/usr/app/back
+    links:
+        - mongo
+front:
+    build: ./front
+    volumes:
+      - ./front:/usr/app/front
+    links:
+        - mongo
+nginx:
+    build: ./nginx
+    links:
+        - back:back
+        - front:front
+    ports:
+        - "80:80"
