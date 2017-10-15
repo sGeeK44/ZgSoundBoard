@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "experimentalDecorators": true,
         "module": "commonjs",
         "noImplicitAny": false,
         "removeComments": true,
@@ -10,7 +11,8 @@
         "target": "es2015"
     },
     "include": [
-        "src/**/*"
+        "src/**/*",
+        "../business/**/*"
     ],
     "exclude": [
         "**/*.spec.ts"

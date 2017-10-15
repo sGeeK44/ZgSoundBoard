@@ -4,12 +4,14 @@ back:
     build: ./back
     volumes:
       - ./back:/usr/app/back
+      - ./business:/usr/app/business
     links:
         - mongo
 front:
     build: ./front
     volumes:
       - ./front:/usr/app/front
+      - ./business:/usr/app/business
     links:
         - mongo
 nginx:

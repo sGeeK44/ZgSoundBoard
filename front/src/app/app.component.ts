@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Sound } from './sound';
+import { Sound } from '../../../business/Sound';
 import { SoundService } from './sound.service';
 
 @Component({
@@ -10,8 +10,8 @@ import { SoundService } from './sound.service';
 })
 export class AppComponent implements OnInit {
   title = 'Zg SoundBoard!';
-  sounds 
-  
+  sounds: Sound[];
+
   constructor(private soundService: SoundService) { }
 
   ngOnInit(): void {
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   }
 
   onPlay(sound: Sound): void {
-    var audio = new Audio(sound.source);
+    const audio = new Audio(sound.source);
     audio.load();
     audio.play();
   }
