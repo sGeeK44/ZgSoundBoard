@@ -7,6 +7,6 @@ server {
 	access_log /var/log/nginx/zgsoundboard-access.log;
 
 	location / {
-		proxy_pass http://back;
+		proxy_pass http://back:3000;
 	}
 }

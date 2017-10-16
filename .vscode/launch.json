@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+            "type": "node",
+            "request": "attach",
+            "name": "Attach",
+            "port": 9229,
+            "address": "localhost"
+        },
+        {
+            "name": "Backend",
+            "type": "node",
+            "request": "attach",
+            "port": 9229,
+            "address": "localhost",
+            "restart": true,
+            "timeout": 60000,
+            "localRoot": "${workspaceRoot}/back",
+            "remoteRoot": "/usr/app/back",
+            "outFiles": [
+                "${workspaceRoot}/back/dist/**/*.js"
+            ]
+        }
+    ]
+}

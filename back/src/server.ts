@@ -10,7 +10,7 @@ import * as http from 'http';
 import index from './index';
 
 const debug = debugModule('node-express-typescript:server');
-const port = normalizePort(process.env.PORT || '80');
+const port = normalizePort(process.env.PORT || '3000');
 const app: express.Express = express();
 
 // uncomment after placing your favicon in /public
