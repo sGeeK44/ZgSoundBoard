@@ -7,7 +7,8 @@ import cookieParser = require('cookie-parser'); // this module doesn't use the E
 import * as debugModule from 'debug';
 import * as http from 'http';
 
-import index from './index';
+import { IndexRoute } from './controllers/IndexRoute';
+import { SoundRoute } from './controllers/SoundRoute';
 
 const debug = debugModule('node-express-typescript:server');
 const port = normalizePort(process.env.PORT || '3000');
@@ -21,10 +22,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
-
-app.use('/', index);
+let router: express.Router;
+router = express.Router();
+IndexRoute.Create(router);
+SoundRoute.Create(router);
+app.use(router);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -1,5 +1,5 @@
 export interface ISound {
   name: string;
-  source: string;
+  source: Buffer;
   createdAt: Date;
 }

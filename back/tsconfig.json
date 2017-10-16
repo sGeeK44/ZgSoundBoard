@@ -11,8 +11,7 @@
         "target": "es2015"
     },
     "include": [
-        "src/**/*",
-        "../business/**/*"
+        "src/**/*"
     ],
     "exclude": [
         "**/*.spec.ts"

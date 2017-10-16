@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Sound } from '../../../business/Sound';
+import { Sound } from './Sound';
 import { SoundService } from './sound.service';
 
 @Component({

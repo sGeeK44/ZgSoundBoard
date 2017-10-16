@@ -3,8 +3,7 @@ mongo:
 back:
     build: ./back
     volumes:
-      - ./back:/usr/app/back
-      - ./business:/usr/app/business
+        - ./back:/usr/app/back
     links:
         - mongo
     ports:
@@ -12,8 +11,7 @@ back:
 front:
     build: ./front
     volumes:
-      - ./front:/usr/app/front
-      - ./business:/usr/app/business
+        - ./front:/usr/app/front
     links:
         - mongo
 nginx:

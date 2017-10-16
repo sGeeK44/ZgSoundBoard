@@ -1,8 +1,8 @@
 import "mocha";
-import { Sound } from "../../../business/Sound";
-import { ISound } from "../../../business/ISound";
-import { ISoundModel } from "../sound_model";
-import { soundSchema } from "../sound_schema";
+import { Sound } from "../Sound";
+import { ISound } from "../ISound";
+import { ISoundRepository } from "../SoundRepository";
+import { soundSchema } from "../SoundRepository";
 import { suite, test } from "mocha-typescript";
 import mongoose = require("mongoose");
 
@@ -13,7 +13,7 @@ class SoundTest {
   private data: ISound;
 
   //the User model
-  public static SoundModel: mongoose.Model<ISoundModel>;
+  public static SoundModel: mongoose.Model<ISoundRepository>;
 
   public static before() {
     //use q promises
@@ -25,7 +25,7 @@ class SoundTest {
     //connect to mongoose and create model
     const MONGODB_CONNECTION: string = "mongodb://mongo:27017/zgsoundboard";
     let connection: mongoose.Connection = mongoose.createConnection(MONGODB_CONNECTION);
-    SoundTest.SoundModel = connection.model<ISoundModel>("Sound", soundSchema);
+    SoundTest.SoundModel = connection.model<ISoundRepository>("Sound", soundSchema);
 
     //require chai and use should() assertions
     let chai = require("chai");
