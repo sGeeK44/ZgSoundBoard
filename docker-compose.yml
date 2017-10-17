@@ -4,6 +4,7 @@ back:
     build: ./back
     volumes:
         - ./back:/usr/app/back
+        - /usr/app/back/node_modules
     links:
         - mongo
     ports:
@@ -12,6 +13,7 @@ front:
     build: ./front
     volumes:
         - ./front:/usr/app/front
+        - /usr/app/front/node_modules
     links:
         - mongo
 nginx:
