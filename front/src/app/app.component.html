@@ -1,9 +1,23 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-    <h1>
+<div>
+    <h1 style="text-align:center">
         Welcome to {{title}}
     </h1>
-    <span *ngFor="let sound of sounds">
-        <a (click)="onPlay(sound)" href="#son/{{slug}}" role="button" class="btn btn-primary">{{sound.name}}</a>
-    </span>
+    <div class="container">
+        <form (ngSubmit)="onSubmit()" #soundForm="ngForm">
+            <div class="form-group">
+                <label for="name">Libellé: </label>
+                <input id="name" name="name" [(ngModel)]="newSoundName" placeholder="Saisissez un libellé." required/>
+            </div>
+            <div class="form-group">
+                <input type="file" (change)="onFileUpdated($event);" />
+            </div>
+            <button class="btn btn-success" type="submit" [disabled]="!soundForm.form.valid">Balancer!</button> {{this.insertResult}}
+        </form>
+    </div>
+    <div class="container" style="text-align:center">
+        <span *ngFor="let sound of sounds">
+            <a (click)="onPlay(sound)" href="#son/{{slug}}" role="button" class="btn btn-primary">{{sound.name}}</a>
+        </span>
+    </div>
 </div>

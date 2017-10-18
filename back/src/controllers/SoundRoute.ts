@@ -67,12 +67,12 @@ export class SoundRoute {
         var data = {
           name: fields.name,          
           createdAt: new Date(),
-          source: fs.readFileSync(files.null[0].path)
+          source: fs.readFileSync(files.file[0].path)
         }
         var soundRepo = new SoundRepository();
         soundRepo.create(<ISound>data, (error, result) => {
-          if(error) res.send({"error": "error"});
-          else res.send({"success": "success"});
+          if(error) res.send({"result": "error"});
+          else res.send({"result": "success"});
         })
       });
     }
