@@ -21,9 +21,15 @@ export class SoundRoute {
   public GetAll(req: Request, res: Response, next: NextFunction) {    
     try {      
       var soundRepo = new SoundRepository();
-      soundRepo.retrieve((error, result) => {
-      if(error) res.send({"error": "error"});
-      else res.send(result);
+      soundRepo.retrieve((error, dbResult) => {
+        if(error) res.send({"error": "error"});
+        else {
+          var result = Array<any>();
+          dbResult.forEach(element => {
+            result.push({id: element.id, name: element.name, link: "http://api.zgsoundboard.com/sound/" + element.id + "/file"});
+          });
+          res.send(result);
+        }
       });   
     }
     catch (e) {
@@ -59,7 +65,8 @@ export class SoundRoute {
       var form = new multiparty.Form();      
       form.parse(req, function(err, fields, files) {
         var data = {
-          name: fields.name,
+          name: fields.name,          
+          createdAt: new Date(),
           source: fs.readFileSync(files.null[0].path)
         }
         var soundRepo = new SoundRepository();
