@@ -2,7 +2,6 @@ import { NextFunction, Request, Response, Router } from "express";
 var multiparty = require('multiparty');
 var fs = require('fs');
 import { SoundRepository } from '../SoundRepository';
-import { Sound } from '../Sound';
 import { ISound } from '../ISound';
 
 export class SoundRoute {
@@ -10,6 +9,9 @@ export class SoundRoute {
   public static Create(router: Router) {
     router.get("/sound", (req: Request, res: Response, next: NextFunction) => {
       new SoundRoute().GetAll(req, res, next);
+    });
+    router.get("/sound/:id/file", (req: Request, res: Response, next: NextFunction) => {
+      new SoundRoute().GetFile(req, res, next);
     });
     router.post("/sound", (req: Request, res: Response, next: NextFunction) => {
       new SoundRoute().Create(req, res, next);        
@@ -22,6 +24,27 @@ export class SoundRoute {
       soundRepo.retrieve((error, result) => {
       if(error) res.send({"error": "error"});
       else res.send(result);
+      });   
+    }
+    catch (e) {
+        console.log(e);
+        res.send({"error": "error in your request"});
+    }
+  }
+  
+  public GetFile(req: Request, res: Response, next: NextFunction) {
+    try {      
+      var soundRepo = new SoundRepository();
+      soundRepo.findById(req.params.id, (error, result) => {
+      if(error) res.send({"error": "error"});
+      else {
+        res.writeHead(200, {
+          'Content-Type': 'audio/mpeg',
+          'Content-Length': result.source.byteLength
+        });
+        res.write(result.source);
+        res.end();
+      }
       });   
     }
     catch (e) {
