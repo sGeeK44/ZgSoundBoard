@@ -20,6 +20,13 @@ class SoundSchema {
            }
        });
        
+       schema.pre("save", function(next) {
+        if (!this.createdAt) {
+          this.createdAt = new Date();
+        }
+        next();
+      });
+       
        return schema;
    }   
 }
