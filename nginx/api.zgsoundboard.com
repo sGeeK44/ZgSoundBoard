@@ -8,5 +8,11 @@ server {
 
 	location / {
 		proxy_pass http://back:3000;
+		
+		# Ajouter les headers de contrôle d'accès CORS
+        add_header    'Access-Control-Allow-Origin' '*' always;
+        add_header    'Access-Control-Allow-Methods' 'GET, POST, PUT, OPTIONS' always;
+        add_header    'Access-Control-Allow-Headers' 'Origin, X-Requested-With, Content-Type, Accept' always;
+        add_header    'Access-Control-Allow-Credentials' 'true' always;
 	}
 }
