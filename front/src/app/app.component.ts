@@ -15,11 +15,17 @@ export class AppComponent implements OnInit {
   constructor(private soundService: SoundService) { }
 
   ngOnInit(): void {
-    this.soundService.getSounds().then(sounds => this.sounds = sounds);
+    this.loadSounds();
+  }
+
+  loadSounds() {
+       this.soundService.getSounds()
+                        .subscribe(sound => this.sounds = sound,
+                                   err => console.log(err));
   }
 
   onPlay(sound: Sound): void {
-    const audio = new Audio(sound.source);
+    const audio = new Audio(sound.link);
     audio.load();
     audio.play();
   }

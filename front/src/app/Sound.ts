@@ -1,10 +1,10 @@
 export class Sound {
     name: string;
-    source: string;
+    link: string;
     createdAt: Date;
 
-    constructor(public n: string, public s: string) {
+    constructor(public n: string, public l: string) {
         this.name = n;
-        this.source = s;
+        this.link = l;
     }
 }
