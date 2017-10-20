@@ -3,6 +3,7 @@ import { Sound } from './Sound';
 import { SoundService } from './sound.service';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
+import * as path from 'path';
 
 
 @Component({
@@ -15,8 +16,10 @@ export class AppComponent implements OnInit {
   title = 'Zg SoundBoard!';
   newSoundName: string;
   newSoundFile: any;
+  newSouldFiles: any[];
   sounds: Sound[];
   insertResult: string;
+  bulkInsertResult: string;
 
   constructor(private soundService: SoundService, private http: Http) { }
 
@@ -36,27 +39,66 @@ export class AppComponent implements OnInit {
     audio.play();
   }
 
+  onFileUpdated($event) {
+    const files = $event.target.files || $event.srcElement.files;
+    this.newSoundFile = files[0];
+  }
+
+  onFileBulkDragOver($event) {
+    $event.stopPropagation();
+    $event.preventDefault();
+    $event.dataTransfer.dropEffect = 'copy';
+  }
+
+  onFileBulkDrop($event) {
+    $event.stopPropagation();
+    $event.preventDefault();
+    console.log($event.dataTransfer);
+    for (let i = 0, f; f = $event.dataTransfer.files[i]; i++) {
+      console.log(f);
+    }
+
+    this.newSouldFiles = $event.dataTransfer.files;
+  }
+
   onSubmit() {
+    this.PostNewSound(this.newSoundName, this.newSoundFile, function(result) {
+      this.insertResult = result;
+    });
+  }
+
+  onSubmitBulk() {
+    this.AddSoundDirectory(this.newSouldFiles, function(result) {
+      this.bulkInsertResult = result;
+    });
+  }
+
+  AddSoundDirectory(files: string[], callback: (any)) {
+    for (let i = 0, f; f = files[i]; i++) {
+      const reader = new FileReader();
+      const fileContent = reader.readAsArrayBuffer(f);
+      const soundName = f.name.substring(0, f.name.lastIndexOf('.'));
+      this.PostNewSound(soundName, f, callback);
+    }
+  }
+
+  PostNewSound(name: string, file: any, callback: (any)) {
     const formData = new FormData();
-    formData.append('name', this.newSoundName);
-    formData.append('file', this.newSoundFile);
+    console.log(file);
+    formData.append('name', name);
+    formData.append('file', file);
 
     const headers = new Headers({});
     const options = new RequestOptions({ headers });
     const url = 'http://api.zgsoundboard.com/sound';
 
     this.http.post(url, formData, options).subscribe(res => {
-       this.insertResult = res.json().result;
-       const timer = Observable.timer(2000, 1000);
-       const sub = timer.subscribe(_ => {
-         this.insertResult = '';
-         sub.unsubscribe();
-       });
+        const timer = Observable.timer(2000, 1000);
+        const sub = timer.subscribe(_ => {
+          sub.unsubscribe();
+          this.insertResult = '';
+        });
+        callback(res.json().result + ' ' + name);
     });
-  }
-
-  onFileUpdated($event) {
-    const files = $event.target.files || $event.srcElement.files;
-    this.newSoundFile = files[0];
   }
 }

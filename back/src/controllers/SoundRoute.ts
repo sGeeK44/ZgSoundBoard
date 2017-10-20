@@ -65,7 +65,7 @@ export class SoundRoute {
       var form = new multiparty.Form();      
       form.parse(req, function(err, fields, files) {
         var data = {
-          name: fields.name,          
+          name: fields.name,         
           createdAt: new Date(),
           source: fs.readFileSync(files.file[0].path)
         }
