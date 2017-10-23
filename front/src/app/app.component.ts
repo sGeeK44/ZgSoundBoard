@@ -68,17 +68,18 @@ export class AppComponent implements OnInit {
   }
 
   onSubmitBulk() {
-    this.AddSoundDirectory(this.newSouldFiles, function(result) {
-      this.bulkInsertResult = result;
-    });
-  }
-
-  AddSoundDirectory(files: string[], callback: (any)) {
-    for (let i = 0, f; f = files[i]; i++) {
+    for (let i = 0, f; f = this.newSouldFiles[i]; i++) {
       const reader = new FileReader();
       const fileContent = reader.readAsArrayBuffer(f);
       const soundName = f.name.substring(0, f.name.lastIndexOf('.'));
-      this.PostNewSound(soundName, f, callback);
+      this.PostNewSound(soundName, f, function(json){
+        console.log(json);
+        if (json.result === 'success') {
+          this.sounds.push(json.sound);
+        } else {
+          this.bulkInsertResult = 'Error: ' + soundName;
+        }
+      });
     }
   }
 
@@ -98,7 +99,7 @@ export class AppComponent implements OnInit {
           sub.unsubscribe();
           this.insertResult = '';
         });
-        callback(res.json().result + ' ' + name);
+        callback(res.json());
     });
   }
 }

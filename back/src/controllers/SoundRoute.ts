@@ -72,7 +72,7 @@ export class SoundRoute {
         var soundRepo = new SoundRepository();
         soundRepo.create(<ISound>data, (error, result) => {
           if(error) res.send({"result": "error"});
-          else res.send({"result": "success"});
+          else res.send({"result": "success", "sound":{id: result.id, name: result.name, link: "http://api.zgsoundboard.com/sound/" + result.id + "/file"}});
         })
       });
     }

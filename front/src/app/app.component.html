@@ -3,15 +3,26 @@
     <h1 style="text-align:center">
         Welcome to {{title}}
     </h1>
-    <div stype="margin:10px;">
+    <div>
         <form (ngSubmit)="onSubmitBulk()" #soundBulkForm="ngForm">
-            <div style="margin:10px;display:inline-block;width:80%;text-align: center;border-color: #204;border-width: 2px;border-style: dashed;padding: 10px;color: #555;" id="drop_zone" (drop)="onFileBulkDrop($event);" (dragover)="onFileBulkDragOver($event)">Drop files here></div>
+            <div style="margin:10px;display:inline-block;width:100%;height:100px; text-align: center;border-color: #204;border-width: 2px;border-style: dashed;padding: 10px;color: #555;" id="drop_zone" (drop)="onFileBulkDrop($event);" (dragover)="onFileBulkDragOver($event)">Drop files here></div>
             <button style="display: block;margin : auto;" class="btn btn-success" type="submit" [disabled]="!soundBulkForm.form.valid">Balancer la totale!</button> {{this.bulkInsertResult}}
         </form>
     </div>
-    <div class="container" style="text-align:center">
-        <span style="margin-left: 10px" *ngFor="let sound of sounds">
-            <a (click)="onPlay(sound)" href="#son/{{slug}}" role="button" class="btn btn-primary">{{sound.name}}</a>
-        </span>
+    <div class="input-group">
+        <span class="input-group-addon">Filtrer</span>
+        <input id="msg" type="text" [(ngModel)]="filterText" class="form-control" name="msg" placeholder="Ex: Emile">
+    </div>
+    <div class="panel-heading">
+        Top 100!
+    </div>
+    <div *ngFor="let sound of sounds | filter:filterText; let i=index;">
+        <div class="row" *ngIf="i%4==0">
+            <div style="margin-top: 10px" class="col-xs-6 col-sm-3" *ngFor="let sound of sounds | slice:i*4:i*4+4;">
+                <a style="width: 100%" (click)="onPlay(sound)" href="#son/{{slug}}" role="button" class="btn btn-primary">{{sound.name}}</a>
+            </div>
+            <div class="clearfix visible-sm"></div>
+            <div class="clearfix visible-xs"></div>
+        </div>
     </div>
 </div>
