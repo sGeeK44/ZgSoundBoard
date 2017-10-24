@@ -8,7 +8,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FilterPipe implements PipeTransform {
     transform(items: any[], term: string): any {
         return term
-            ? items.filter(item => item.name.indexOf(term) !== -1)
+            ? items.filter((e: any) => new RegExp(term, 'gi').test(e.name))
             : items;
     }
 }
