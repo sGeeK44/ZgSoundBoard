@@ -26,7 +26,8 @@
     "fs": "0.0.1-security",
     "path": "^0.12.7",
     "rxjs": "^5.4.2",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.14",
+    "angular2-google-login": "^1.0.9"
   },
   "devDependencies": {
     "@angular/cli": "1.4.7",
