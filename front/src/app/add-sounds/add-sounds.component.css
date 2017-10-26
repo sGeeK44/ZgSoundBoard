@@ -1,0 +1,7 @@
+.drop-zone {
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+    margin: 10px;
+    border: 2px dashed #204;
+}
