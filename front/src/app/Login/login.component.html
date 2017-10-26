@@ -1,0 +1,16 @@
+<section class="google-login-page">
+        <div *ngIf="!token" id="google-login-button" class="g-signin2" data-theme="dark" (click)="googleAuthenticate()">Google Sign-In</div>
+      
+        <div *ngIf="token">
+          <img src="{{imageURL}}">
+          <br>
+          <b>TOKEN: </b>
+          <p>{{token}}</p>
+          <b>NAME: </b>
+          <p>{{name}}</p>
+          <b>EMAIL: </b>
+          <p>{{email}}</p>
+      
+          <button class="btn btn-danger" (click)="logout()">Logout</button>
+        </div>
+      </section>

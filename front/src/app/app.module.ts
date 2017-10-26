@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { LoginComponent } from './Login/login.component';
 
 import { FilterPipe } from './Pipes/filter';
 import { AddSoundsComponent } from './add-sounds/add-sounds.component';
@@ -16,6 +17,7 @@ import { DisplaySoundsComponent } from './display-sounds/display-sounds.componen
     FilterPipe,
     AddSoundsComponent,
     DisplaySoundsComponent,
+    LoginComponent
   ],
   imports: [
     HttpModule,
