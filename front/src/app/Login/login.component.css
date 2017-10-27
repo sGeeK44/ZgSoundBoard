@@ -1,3 +1,18 @@
 .img-circle {
     border-radius: 50%;
+    width: 30px;
+}
+
+.google-account{
+    margin-top: 10px;
+    margin-right: 0;
+    margin-left: auto;
+    width: fit-content;
+}
+
+.google-logged-button > div{
+    display: inline-block;
+}
+.google-fullname{
+    font-weight: bold;
 }

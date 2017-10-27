@@ -4,7 +4,7 @@ export class GoogleProfile{
     fullName: string;
     image_url: string;
     googleId: string;
-    token_id: string;
+    tokenId: string;
 
     constructor(public profile: any){
         if(profile instanceof gapi.auth2.BasicProfile){
