@@ -1,8 +1,10 @@
-
+<div class="google-account">
       <div id="my-signin2" (data-onsuccess)="onSignIn"></div> 
-      <div *ngIf="fShowInfo">
-          <img class="img-circle" src={{profile.image_url}}/>
-        <h2> {{profile.fullname}} </h2>
-        <h2> {{profile.email}} </h2>
-        <a href="#" (click)="signOut()">Sign out</a>
+      <div *ngIf="loaded" class="google-logged-button">
+        <div class="google-image">
+            <img class="img-circle" src={{profile.image_url}}/>
+        </div>
+        <div class="google-fullname">{{profile.fullName}}</div>
+        <button (click)="signOut()" class="sign-out-button">Déconnexion</button>
       </div>
+</div>
