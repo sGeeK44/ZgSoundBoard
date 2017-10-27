@@ -1,6 +1,6 @@
 <div class="google-account">
-      <div id="my-signin2" (data-onsuccess)="onSignIn"></div> 
-      <div *ngIf="loaded" class="google-logged-button">
+      <div [hidden]="logged" id="my-signin2"></div> 
+      <div *ngIf="logged" class="google-logged-button">
         <div class="google-image">
             <img class="img-circle" src={{profile.image_url}}/>
         </div>
