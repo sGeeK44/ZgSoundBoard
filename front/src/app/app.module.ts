@@ -5,12 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './Login/login.component';
+import { LoginComponent } from './views/login/login.component';
 
 import { FilterPipe } from './Pipes/filter';
-import { AddSoundsComponent } from './add-sounds/add-sounds.component';
-import { DisplaySoundsComponent } from './display-sounds/display-sounds.component';
-import { UserProfileService } from './UserProfile/UserProfile.service';
+import { AddSoundsComponent } from './views/add-sounds/add-sounds.component';
+import { DisplaySoundsComponent } from './views/display-sounds/display-sounds.component';
+import { UserProfileService } from './business/UserProfile/UserProfile.service';
 
 @NgModule({
   declarations: [

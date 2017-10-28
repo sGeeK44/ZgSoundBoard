@@ -4,7 +4,7 @@ import { Sound } from './Sound';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { UserProfileService } from './UserProfile/UserProfile.service';
+import { UserProfileService } from '../UserProfile/UserProfile.service';
 
 const SOUNDS: Sound[] = [
   new Sound ('La mer noire', '/assets/sounds/la_mer_noire.mp3'),
@@ -44,9 +44,9 @@ export class SoundService {
     });
   }
 
-  getUrl() : string {
-    let profile = this.userProfileService.Get();
-    let tokenId = profile != null ? profile.tokenId : '';
+  getUrl(): string {
+    const profile = this.userProfileService.Get();
+    const tokenId = profile != null ? profile.tokenId : '';
     return this.endpoint + '?' + 'id_token=' + tokenId;
   }
 }

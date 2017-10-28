@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SoundService } from '../sound.service';
+import { SoundService } from '../../business/Sounds/sound.service';
 import { Observable } from 'rxjs/Rx';
 import * as path from 'path';
 

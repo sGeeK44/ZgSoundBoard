@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Sound } from '../Sound';
-import { SoundService } from '../sound.service';
+import { Sound } from '../../business/Sounds/Sound';
+import { SoundService } from '../../business/Sounds/sound.service';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import * as path from 'path';

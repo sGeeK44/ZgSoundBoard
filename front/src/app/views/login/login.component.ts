@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone  } from '@angular/core';
-import { GoogleProfile } from '../UserProfile/GoogleProfile';
-import { UserProfileService } from '../UserProfile/UserProfile.service';
+import { GoogleProfile } from '../../business/UserProfile/GoogleProfile';
+import { UserProfileService } from '../../business/UserProfile/UserProfile.service';
 declare var gapi: any;
 
 @Component({
