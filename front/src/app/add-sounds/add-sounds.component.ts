@@ -44,7 +44,11 @@ export class AddSoundsComponent implements OnInit {
       return 'label-info'
   }
 
-  onSubmitBulk() {
+  clearDropZone() {
+    this.newSouldFiles = undefined
+  }
+
+  addSounds() {
     for (let i = 0, f; f = this.newSouldFiles[i]; i++) {
       const reader = new FileReader();
       const fileContent = reader.readAsArrayBuffer(f);
