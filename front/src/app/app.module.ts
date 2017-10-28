@@ -10,6 +10,7 @@ import { LoginComponent } from './Login/login.component';
 import { FilterPipe } from './Pipes/filter';
 import { AddSoundsComponent } from './add-sounds/add-sounds.component';
 import { DisplaySoundsComponent } from './display-sounds/display-sounds.component';
+import { UserProfileService } from './UserProfile/UserProfile.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { DisplaySoundsComponent } from './display-sounds/display-sounds.componen
       { path: '',    redirectTo: '/display-sounds', pathMatch: 'full'  }
     ])
   ],
-  providers: [],
+  providers: [ UserProfileService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

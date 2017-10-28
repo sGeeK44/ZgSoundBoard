@@ -4,6 +4,7 @@ import { Sound } from './Sound';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { UserProfileService } from './UserProfile/UserProfile.service';
 
 const SOUNDS: Sound[] = [
   new Sound ('La mer noire', '/assets/sounds/la_mer_noire.mp3'),
@@ -14,16 +15,18 @@ const SOUNDS: Sound[] = [
 @Injectable()
 export class SoundService {
   http: Http;
+  userProfileService: UserProfileService;
   sounds: Array<Sound>;
   endpoint: string;
 
-  constructor(http: Http) {
+  constructor(http: Http, userProfileService: UserProfileService) {
+    this.userProfileService = userProfileService;
     this.http = http;
     this.endpoint = 'http://api.zgsoundboard.com/sound';
   }
 
   getSounds(): Observable<Sound[]> {
-    return this.http.get(this.endpoint)
+    return this.http.get(this.getUrl())
                     .map(res => res.json())
                     .catch(error => Observable.throw(error.json().error || 'Server error'));
   }
@@ -36,8 +39,14 @@ export class SoundService {
 
     const headers = new Headers({});
     const options = new RequestOptions({ headers });
-    this.http.post(this.endpoint, formData, options).subscribe(res => {
+    this.http.post(this.getUrl(), formData, options).subscribe(res => {
         callback(res.json());
     });
+  }
+
+  getUrl() : string {
+    let profile = this.userProfileService.Get();
+    let tokenId = profile != null ? profile.tokenId : '';
+    return this.endpoint + '?' + 'id_token=' + tokenId;
   }
 }

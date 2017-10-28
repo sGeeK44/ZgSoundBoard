@@ -1,41 +1,39 @@
 import { Component, OnInit, NgZone  } from '@angular/core';
-import { GoogleProfile } from './GoogleProfile'
+import { GoogleProfile } from '../UserProfile/GoogleProfile';
+import { UserProfileService } from '../UserProfile/UserProfile.service';
 declare var gapi: any;
 
 @Component({
-    selector: 'google-login',
+    selector: 'app-google-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
-    providers: []
+    providers: [ UserProfileService ]
   })
   export class LoginComponent implements OnInit {
-    profile: GoogleProfile
+    profile: GoogleProfile;
     logged = false;
 
-    constructor(private zone: NgZone) { }
-  
+    constructor(private zone: NgZone, private userProfileService: UserProfileService) { }
+
     ngOnInit(): void {
-        gapi.signin2.render('my-signin2', {    
+        gapi.signin2.render('my-signin2', {
             'onsuccess': param => this.onSignIn(param),
             'theme': 'dark'
         });
     }
     onSignIn(googleUser) {
         this.zone.run(() => {
-            console.log("test");
+            console.log('test');
             const basic_profile = googleUser.getBasicProfile();
-            let id_token = googleUser.getAuthResponse().id_token;
-            this.profile = new GoogleProfile(basic_profile);
-            
-            //How use this token server side https://developers.google.com/identity/sign-in/web/backend-auth
-            this.profile.tokenId = id_token;
+            const id_token = googleUser.getAuthResponse().id_token;
+            this.profile = new GoogleProfile(basic_profile, id_token);
+            this.userProfileService.Set(this.profile);
             this.logged = true;
-        })
-        
-    };
+        });
+    }
 
     signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
+        const auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut();
         this.logged = false;
     }
