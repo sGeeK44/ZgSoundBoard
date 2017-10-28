@@ -7,6 +7,7 @@ import cookieParser = require('cookie-parser'); // this module doesn't use the E
 import * as debugModule from 'debug';
 import * as http from 'http';
 
+import { BaseRoutes } from './routes/BaseRoutes'
 import { IndexRoute } from './controllers/IndexRoute';
 import { SoundRoute } from './controllers/SoundRoute';
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 let router: express.Router;
 router = express.Router();
+BaseRoutes.CreateRoutes(router);
 IndexRoute.Create(router);
 SoundRoute.Create(router);
 app.use(router);
