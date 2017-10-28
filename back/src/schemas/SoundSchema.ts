@@ -1,6 +1,6 @@
-import connection from './mongo'
+import connection from '../mongo'
 import { Schema } from 'mongoose';
-import { ISound } from './ISound';
+import { ISound } from '../interfaces/ISound';
 
 class SoundSchema {
        

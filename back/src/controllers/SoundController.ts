@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response, Router } from "express";
 var multiparty = require('multiparty');
 var fs = require('fs');
-import { SoundRepository } from '../SoundRepository';
-import { ISound } from '../ISound';
+import { SoundRepository } from '../repository/SoundRepository';
+import { ISound } from '../interfaces/ISound';
 
+<<<<<<< HEAD:back/src/controllers/SoundRoute.ts
 export class SoundRoute {
 
   public static Create(router: Router) {
@@ -20,6 +21,9 @@ export class SoundRoute {
       new SoundRoute().Create(req, res, next);        
     });
   }
+=======
+export class SoundController {
+>>>>>>> reorganize repo:back/src/controllers/SoundController.ts
   
   public GetAll(req: Request, res: Response, next: NextFunction) {    
     try {      
