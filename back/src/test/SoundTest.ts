@@ -1,7 +1,7 @@
 import "mocha";
-import { ISound } from "../ISound";
-import { SoundRepository } from "../SoundRepository";
-import SoundSchema = require("../SoundSchema");
+import { ISound } from "../interfaces/ISound";
+import { SoundRepository } from "../repository/SoundRepository";
+import SoundSchema = require("../schemas/SoundSchema");
 import { suite, test } from "mocha-typescript";
 import mongoose = require("mongoose");
 

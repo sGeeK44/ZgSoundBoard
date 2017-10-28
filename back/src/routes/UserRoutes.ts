@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { IRoutes } from './IRoutes'
+import { IRoutes } from './base/IRoutes'
 import { UserController } from '../controllers/UserController'
 
 export class UserRoutes implements IRoutes {
