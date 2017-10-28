@@ -10,11 +10,7 @@ import * as path from 'path';
   providers: [SoundService]
 })
 export class AddSoundsComponent implements OnInit {
-  newSoundName: string;
-  newSoundFile: any;
   newSouldFiles: any[];
-  insertResult: string;
-  bulkInsertResult: string;
 
   constructor(private soundService: SoundService) { }
 
@@ -30,12 +26,22 @@ export class AddSoundsComponent implements OnInit {
   onFileBulkDrop($event) {
     $event.stopPropagation();
     $event.preventDefault();
-    console.log($event.dataTransfer);
     for (let i = 0, f; f = $event.dataTransfer.files[i]; i++) {
-      console.log(f);
+      f.result = undefined
     }
 
     this.newSouldFiles = $event.dataTransfer.files;
+  }
+
+  getFileResultClass(file)
+  {
+      if (file.result == true)
+        return 'label-success'
+
+      if (file.result == false)
+        return 'label-important'
+
+      return 'label-info'
   }
 
   onSubmitBulk() {
@@ -46,15 +52,10 @@ export class AddSoundsComponent implements OnInit {
       this.soundService.postNewSound(soundName, f, function(json){
         console.log(json);
         if (json.result === 'success') {
-          this.sounds.push(json.sound);
+          f.result = true;
         } else {
-          this.bulkInsertResult = 'Error: ' + soundName;
-        }
-        const timer = Observable.timer(2000, 1000);
-        const sub = timer.subscribe(_ => {
-          sub.unsubscribe();
-          this.insertResult = '';
-        });
+          f.result = false;
+        };
       });
     }
   }

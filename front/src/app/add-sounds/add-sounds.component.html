@@ -1,6 +1,11 @@
 <div>
     <form (ngSubmit)="onSubmitBulk()" #soundBulkForm="ngForm">
-        <div class="drop-zone" id="drop_zone" (drop)="onFileBulkDrop($event);" (dragover)="onFileBulkDragOver($event)">Drop files here</div>
-        <button class="btn btn-success center-block" type="submit" [disabled]="!soundBulkForm.form.valid">Balancer la totale!</button> {{this.bulkInsertResult}}
+        <div class="drop-zone" id="drop_zone" (drop)="onFileBulkDrop($event);" (dragover)="onFileBulkDragOver($event)">
+            <span *ngIf="newSouldFiles == undefined|| newSouldFiles?.length == 0">&lt; Drop files here &gt;</span>
+            <div *ngFor="let newSouldFile of newSouldFiles" class="label col-xs-12" [ngClass]="getFileResultClass(newSouldFile)">
+                {{newSouldFile.name}}
+            </div>
+        </div>
+        <button class="btn btn-success center-block" type="submit" [disabled]="!soundBulkForm.form.valid">Balancer la totale!</button>
     </form>
 </div>
