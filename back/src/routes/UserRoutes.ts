@@ -10,6 +10,7 @@ export class UserRoutes implements IRoutes {
     CreateRoutes(router: Router): void {
         const controller = this.userController;
         router.post(this.prefix, controller.Create);
+        router.get(this.prefix, controller.Get)
     }
 
 }

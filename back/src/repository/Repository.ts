@@ -2,18 +2,18 @@ import mongoose = require("mongoose");
  
 export class Repository<T extends mongoose.Document>{
     
-    private _model: mongoose.Model<mongoose.Document>;
+    protected model: mongoose.Model<mongoose.Document>;
     
     constructor (schemaModel: mongoose.Model<mongoose.Document>) {
-        this._model = schemaModel;
+        this.model = schemaModel;
     }
     
     create (item: T, callback: (error: any, result: any) => void) {
-        this._model.create(item, callback);        
+        this.model.create(item, callback);        
     }
     
     retrieve (callback: (error: any, result: any) => void) {
-         this._model.find({}, callback)
+         this.model.find({}, callback)
     }
     
     update (_id: mongoose.Types.ObjectId, item: T, callback: (error: any, result: any) => void) {
@@ -22,16 +22,16 @@ export class Repository<T extends mongoose.Document>{
                 callback(err, res);
             
             else 
-                this._model.update({_id: _id}, item, callback);               
+                this.model.update({_id: _id}, item, callback);               
         });            
     }
         
     delete (_id: string, callback:(error: any, result: any) => void) {
-        this._model.remove({_id: this.toObjectId(_id)}, (err) => callback(err, null));       
+        this.model.remove({_id: this.toObjectId(_id)}, (err) => callback(err, null));       
     } 
     
     findById (_id: string, callback: (error: any, result: T) => void) {
-        this._model.findById( _id, callback);
+        this.model.findById( _id, callback);
     } 
     
     private toObjectId (_id: string) : mongoose.Types.ObjectId {

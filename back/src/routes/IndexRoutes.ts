@@ -6,7 +6,7 @@ export class IndexRoutes implements IRoutes{
   readonly prefix = "/";
 
   public CreateRoutes(router: Router): void {
-    router.get("/", (req: Request, res: Response, next: NextFunction) => {
+    router.get(this.prefix, (req: Request, res: Response, next: NextFunction) => {
       new IndexRoutes().index(req, res, next);
     });
   }

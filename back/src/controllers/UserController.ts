@@ -35,4 +35,21 @@ export class UserController {
             response.send({"error": "error in your request"});
         }
     }
+
+    public Get(request: Request, response: Response){
+        try {      
+            var userRepo = new UserRepository();
+            console.log(request.body);
+            userRepo.findByEmail("test", (error, dbResult) => {
+            if(error)response.send({"error": "error"});
+            else {
+                response.send(dbResult);
+            }
+            });   
+        }
+        catch (e) {
+            console.log(e);
+            response.send({"error": "error in your request"});
+        }
+    }
 }
