@@ -10,6 +10,7 @@ export class BaseRoutes{
     public static CreateRoutes(router: Router){
         new UserRoutes().CreateRoutes(router);
         new SoundRoutes().CreateRoutes(router);
+        new IndexRoutes().CreateRoutes(router);
     }
 
 }
