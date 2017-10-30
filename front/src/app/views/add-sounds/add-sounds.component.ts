@@ -27,25 +27,26 @@ export class AddSoundsComponent implements OnInit {
     $event.stopPropagation();
     $event.preventDefault();
     for (let i = 0, f; f = $event.dataTransfer.files[i]; i++) {
-      f.result = undefined
+      f.result = undefined;
     }
 
     this.newSouldFiles = $event.dataTransfer.files;
   }
 
-  getFileResultClass(file)
-  {
-      if (file.result == true)
-        return 'label-success'
+  getFileResultClass(file) {
+      if (file.result === true) {
+        return 'label-success';
+      }
 
-      if (file.result == false)
-        return 'label-important'
+      if (file.result === false) {
+        return 'label-danger';
+      }
 
-      return 'label-info'
+      return 'label-info';
   }
 
   clearDropZone() {
-    this.newSouldFiles = undefined
+    this.newSouldFiles = undefined;
   }
 
   addSounds() {
@@ -59,7 +60,7 @@ export class AddSoundsComponent implements OnInit {
           f.result = true;
         } else {
           f.result = false;
-        };
+        }
       });
     }
   }

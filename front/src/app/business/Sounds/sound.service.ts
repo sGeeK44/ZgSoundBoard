@@ -40,7 +40,9 @@ export class SoundService {
     const headers = new Headers({});
     const options = new RequestOptions({ headers });
     this.http.post(this.getUrl(), formData, options).subscribe(res => {
-        callback(res.json());
+      callback(res.json());
+    }, err => {
+      callback(JSON.parse('{"result":"error"}'));
     });
   }
 
