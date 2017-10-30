@@ -7,6 +7,7 @@ export class UserController {
     
     public Create(request: Request, response: Response){
         try{
+            console.log("Get user");
             let userRepo = new UserRepository();
             let user: IUser = <IUser>request.body;
             userRepo.create(user, (error, result) => {
@@ -37,19 +38,6 @@ export class UserController {
     }
 
     public Get(request: Request, response: Response){
-        try {      
-            var userRepo = new UserRepository();
-            console.log(request.body);
-            userRepo.findByEmail("test", (error, dbResult) => {
-            if(error)response.send({"error": "error"});
-            else {
-                response.send(dbResult);
-            }
-            });   
-        }
-        catch (e) {
-            console.log(e);
-            response.send({"error": "error in your request"});
-        }
+        
     }
 }

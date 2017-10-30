@@ -11,11 +11,7 @@ class UserSchema{
                 type: String,
                 required: true,
                 unique: true
-            },
-            favoriteSongs: [{
-                type: Object,
-                ref: 'Sound'
-            }]
+            }
         })
     }
 
