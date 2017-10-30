@@ -53,7 +53,9 @@ export class AddSoundsComponent implements OnInit {
     for (let i = 0, f; f = this.newSouldFiles[i]; i++) {
       const reader = new FileReader();
       const fileContent = reader.readAsArrayBuffer(f);
-      const soundName = f.name.substring(0, f.name.lastIndexOf('.'));
+      const soundName = f.name.replace(/_/g, ' ')
+                              .substring(0, f.name.lastIndexOf('.'));
+
       this.soundService.postNewSound(soundName, f, function(json){
         console.log(json);
         if (json.result === 'success') {
