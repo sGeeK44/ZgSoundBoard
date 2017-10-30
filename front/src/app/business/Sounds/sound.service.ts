@@ -6,12 +6,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { UserProfileService } from '../UserProfile/UserProfile.service';
 
-const SOUNDS: Sound[] = [
-  new Sound ('La mer noire', '/assets/sounds/la_mer_noire.mp3'),
-  new Sound ('Tu ne connais pas ça', '/assets/sounds/tu_ne_connais_pas_ca.mp3'),
-  new Sound ('Tu ne  pas ça', '/assets/sounds/tu_ne_connais_pas_ca.mp3')
-];
-
 @Injectable()
 export class SoundService {
   http: Http;
@@ -26,7 +20,7 @@ export class SoundService {
   }
 
   getSounds(): Observable<Sound[]> {
-    return this.http.get(this.getUrl())
+    return this.http.get(this.getUrl(''))
                     .map(res => res.json())
                     .catch(error => Observable.throw(error.json().error || 'Server error'));
   }
@@ -39,16 +33,21 @@ export class SoundService {
 
     const headers = new Headers({});
     const options = new RequestOptions({ headers });
-    this.http.post(this.getUrl(), formData, options).subscribe(res => {
+    this.http.post(this.getUrl(''), formData, options).subscribe(res => {
       callback(res.json());
     }, err => {
       callback(JSON.parse('{"result":"error"}'));
     });
   }
 
-  getUrl(): string {
+  deleteSound(id: string, success: () => void, error: () => void): void {
+    const deleteUri = this.getUrl('/' + id);
+    this.http.delete(deleteUri).subscribe(res => success(), err => error());
+  }
+
+  getUrl(param): string {
     const profile = this.userProfileService.Get();
     const tokenId = profile != null ? profile.tokenId : '';
-    return this.endpoint + '?' + 'id_token=' + tokenId;
+    return this.endpoint + param + '?' + '&id_token=' + tokenId;
   }
 }

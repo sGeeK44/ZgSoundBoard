@@ -13,6 +13,9 @@ export class SoundRoute {
     router.get("/sound/:id/file", (req: Request, res: Response, next: NextFunction) => {
       new SoundRoute().GetFile(req, res, next);
     });
+    router.delete("/sound/:id", (req: Request, res: Response, next: NextFunction) => {
+      new SoundRoute().Delete(req, res, next);
+    });
     router.post("/sound", (req: Request, res: Response, next: NextFunction) => {
       new SoundRoute().Create(req, res, next);        
     });
@@ -26,7 +29,13 @@ export class SoundRoute {
         else {
           var result = Array<any>();
           dbResult.forEach(element => {
-            result.push({id: element.id, name: element.name, link: "http://api.zgsoundboard.com/sound/" + element.id + "/file"});
+            result.push(
+              {
+                id: element.id,
+                name: element.name,
+                link: "http://api.zgsoundboard.com/sound/" + element.id + "/file",
+                createdAt: element.createdAt
+              });
           });
           res.send(result);
         }
@@ -58,6 +67,23 @@ export class SoundRoute {
         res.send({"error": "error in your request"});
     }
   }
+  
+  public Delete(req: Request, res: Response, next: NextFunction) {
+    try {      
+      var soundRepo = new SoundRepository();
+      soundRepo.delete(req.params.id, (error, result) => {
+        if(error) res.send({"error": "error"});
+        else {
+          res.writeHead(200);
+          res.end();
+        }
+      });   
+    }
+    catch (e) {
+        console.log(e);
+        res.send({"error": "error in your request"});
+    }
+  }
 
   public Create(req: Request, res: Response, next: NextFunction) {
     try
@@ -72,7 +98,17 @@ export class SoundRoute {
         var soundRepo = new SoundRepository();
         soundRepo.create(<ISound>data, (error, result) => {
           if(error) res.send({"result": "error"});
-          else res.send({"result": "success", "sound":{id: result.id, name: result.name, link: "http://api.zgsoundboard.com/sound/" + result.id + "/file"}});
+          else res.send(
+          {
+            "result": "success",
+            "sound":
+            {
+              id: result.id,
+              name: result.name,
+              link: "http://api.zgsoundboard.com/sound/" + result.id + "/file",
+              createdAt: result.createdAt
+            }
+          });
         })
       });
     }

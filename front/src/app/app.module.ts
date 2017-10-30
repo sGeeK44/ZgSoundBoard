@@ -9,6 +9,7 @@ import { LoginComponent } from './views/login/login.component';
 
 import { FilterPipe } from './Pipes/filter';
 import { AddSoundsComponent } from './views/add-sounds/add-sounds.component';
+import { DeleteSoundsComponent } from './views/delete-sounds/delete-sounds.component';
 import { DisplaySoundsComponent } from './views/display-sounds/display-sounds.component';
 import { UserProfileService } from './business/UserProfile/UserProfile.service';
 
@@ -17,6 +18,7 @@ import { UserProfileService } from './business/UserProfile/UserProfile.service';
     AppComponent,
     FilterPipe,
     AddSoundsComponent,
+    DeleteSoundsComponent,
     DisplaySoundsComponent,
     LoginComponent
   ],
@@ -32,6 +34,10 @@ import { UserProfileService } from './business/UserProfile/UserProfile.service';
       {
         path: 'add-sounds',
         component: AddSoundsComponent
+      },
+      {
+        path: 'delete-sounds',
+        component: DeleteSoundsComponent
       },
       { path: '',    redirectTo: '/display-sounds', pathMatch: 'full'  }
     ])

@@ -1,10 +1,13 @@
 export class Sound {
+    id: string;
     name: string;
     link: string;
     createdAt: Date;
 
-    constructor(public n: string, public l: string) {
-        this.name = n;
-        this.link = l;
-    }
+  constructor(sound: Sound) {
+    this.id = sound.id;
+    this.name = sound.name;
+    this.link = sound.link;
+    this.createdAt = sound.createdAt;
+  }
 }
