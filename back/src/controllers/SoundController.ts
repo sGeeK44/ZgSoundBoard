@@ -4,26 +4,7 @@ var fs = require('fs');
 import { SoundRepository } from '../repository/SoundRepository';
 import { ISound } from '../interfaces/ISound';
 
-<<<<<<< HEAD:back/src/controllers/SoundRoute.ts
-export class SoundRoute {
-
-  public static Create(router: Router) {
-    router.get("/sound", (req: Request, res: Response, next: NextFunction) => {
-      new SoundRoute().GetAll(req, res, next);
-    });
-    router.get("/sound/:id/file", (req: Request, res: Response, next: NextFunction) => {
-      new SoundRoute().GetFile(req, res, next);
-    });
-    router.delete("/sound/:id", (req: Request, res: Response, next: NextFunction) => {
-      new SoundRoute().Delete(req, res, next);
-    });
-    router.post("/sound", (req: Request, res: Response, next: NextFunction) => {
-      new SoundRoute().Create(req, res, next);        
-    });
-  }
-=======
 export class SoundController {
->>>>>>> reorganize repo:back/src/controllers/SoundController.ts
   
   public GetAll(req: Request, res: Response, next: NextFunction) {    
     try {      

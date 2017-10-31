@@ -36,8 +36,4 @@ export class UserController {
             response.send({"error": "error in your request"});
         }
     }
-
-    public Get(request: Request, response: Response){
-        
-    }
 }

@@ -32,7 +32,11 @@ export class Repository<T extends mongoose.Document>{
     
     findById (_id: string, callback: (error: any, result: T) => void) {
         this.model.findById( _id, callback);
-    } 
+    }
+
+    findOne (fields: any, callback: (error: any, result: T) => void) {
+        this.model.findOne(fields, callback);
+    }
     
     private toObjectId (_id: string) : mongoose.Types.ObjectId {
         return mongoose.Types.ObjectId.createFromHexString(_id)
