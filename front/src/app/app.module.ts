@@ -12,6 +12,7 @@ import { AddSoundsComponent } from './views/add-sounds/add-sounds.component';
 import { DeleteSoundsComponent } from './views/delete-sounds/delete-sounds.component';
 import { DisplaySoundsComponent } from './views/display-sounds/display-sounds.component';
 import { UserProfileService } from './business/UserProfile/UserProfile.service';
+import { ApiClient } from './core/ApiClient';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { UserProfileService } from './business/UserProfile/UserProfile.service';
       { path: '',    redirectTo: '/display-sounds', pathMatch: 'full'  }
     ])
   ],
-  providers: [ UserProfileService ],
+  providers: [ UserProfileService, ApiClient ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

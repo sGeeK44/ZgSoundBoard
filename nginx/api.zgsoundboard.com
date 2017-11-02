@@ -12,7 +12,7 @@ server {
 		# Ajouter les headers de contrôle d'accès CORS
         add_header    'Access-Control-Allow-Origin' '*' always;
         add_header    'Access-Control-Allow-Methods' 'GET, POST, DELETE, PUT, OPTIONS' always;
-        add_header    'Access-Control-Allow-Headers' 'Origin, X-Requested-With, Content-Type, Accept' always;
+        add_header    'Access-Control-Allow-Headers' 'Origin, X-Requested-With, Content-Type, Accept, TokenId' always;
         add_header    'Access-Control-Allow-Credentials' 'true' always;
 	}
 }

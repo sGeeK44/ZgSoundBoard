@@ -1,28 +1,23 @@
 import { Injectable, NgModule } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
 import { Sound } from './Sound';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { UserProfileService } from '../UserProfile/UserProfile.service';
+import { ApiClient } from '../../core/ApiClient';
 
 @Injectable()
 export class SoundService {
-  http: Http;
-  userProfileService: UserProfileService;
   sounds: Array<Sound>;
-  endpoint: string;
+  resourceName: string;
 
-  constructor(http: Http, userProfileService: UserProfileService) {
-    this.userProfileService = userProfileService;
-    this.http = http;
-    this.endpoint = 'http://api.zgsoundboard.com/sound';
+  constructor(private api: ApiClient) {
+    this.resourceName = 'sound';
   }
 
   getSounds(): Observable<Sound[]> {
-    return this.http.get(this.getUrl(''))
-                    .map(res => res.json())
-                    .catch(error => Observable.throw(error.json().error || 'Server error'));
+    return this.api.get(this.resourceName)
+                   .map(res => res.json())
+                   .catch(error => Observable.throw(error.json().error || 'Server error'));
   }
 
   postNewSound(name: string, file: any, callback: (any)) {
@@ -31,9 +26,7 @@ export class SoundService {
     formData.append('name', name);
     formData.append('file', file);
 
-    const headers = new Headers({});
-    const options = new RequestOptions({ headers });
-    this.http.post(this.getUrl(''), formData, options).subscribe(res => {
+    this.api.post(this.resourceName, formData).subscribe(res => {
       callback(res.json());
     }, err => {
       callback(JSON.parse('{"result":"error"}'));
@@ -41,13 +34,6 @@ export class SoundService {
   }
 
   deleteSound(id: string, success: () => void, error: () => void): void {
-    const deleteUri = this.getUrl('/' + id);
-    this.http.delete(deleteUri).subscribe(res => success(), err => error());
-  }
-
-  getUrl(param): string {
-    const profile = this.userProfileService.Get();
-    const tokenId = profile != null ? profile.tokenId : '';
-    return this.endpoint + param + '?' + '&id_token=' + tokenId;
+    this.api.delete(this.resourceName, id).subscribe(res => success(), err => error());
   }
 }

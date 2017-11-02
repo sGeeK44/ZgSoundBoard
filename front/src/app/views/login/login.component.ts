@@ -23,7 +23,6 @@ declare var gapi: any;
     }
     onSignIn(googleUser) {
         this.zone.run(() => {
-            console.log('test');
             const basic_profile = googleUser.getBasicProfile();
             const id_token = googleUser.getAuthResponse().id_token;
             this.profile = new GoogleProfile(basic_profile, id_token);

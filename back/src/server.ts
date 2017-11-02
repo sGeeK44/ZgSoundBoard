@@ -8,6 +8,7 @@ import * as debugModule from 'debug';
 import * as http from 'http';
 
 import { BaseRoutes } from './routes/base/BaseRoutes'
+import { GoogleOAuth } from './middlewares/GoogleOAuth'
 
 const debug = debugModule('node-express-typescript:server');
 const port = normalizePort(process.env.PORT || '3000');
@@ -19,7 +20,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(GoogleOAuth);
 
 let router: express.Router;
 router = express.Router();

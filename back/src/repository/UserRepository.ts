@@ -7,22 +7,15 @@ export class UserRepository  extends Repository<IUser> {
         super(UserSchema);
     }
 
-    public getOrCreateByMail(email: string, user: IUser){
+    public getOrCreateByMail(email: string, callback : (error: any, result: IUser) => void) {
         this.findOne({'email': email}, (err, result) =>{
-            if(err){console.log("Erreur lors de la recherche de l'utilisateur "+email)}
-            else if(result){
-                console.log('user already exist')
-                user=result
+            if(err || result) {
+                callback(err, result);
             }
-            else{
-                console.log('user not already exist')
-                const data = {'email': email}
+            else {
+                const data = { 'email': email };
                 this.create(<IUser>data, (error, result) => {
-                    if(error) {"Erreur lors de la creation de l'utilisateur "+email+". "+error}
-                    else {
-                        user=result
-                        console.log("user create "+result);
-                    }
+                    callback(err, result);
                 });
             }
         });
