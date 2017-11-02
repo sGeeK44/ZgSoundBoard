@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
 
 import { FilterPipe } from './Pipes/filter';
+import { SoundComponent } from './views/sound/sound.component';
 import { AddSoundsComponent } from './views/add-sounds/add-sounds.component';
 import { DeleteSoundsComponent } from './views/delete-sounds/delete-sounds.component';
 import { DisplaySoundsComponent } from './views/display-sounds/display-sounds.component';
@@ -18,6 +19,7 @@ import { ApiClient } from './core/ApiClient';
   declarations: [
     AppComponent,
     FilterPipe,
+    SoundComponent,
     AddSoundsComponent,
     DeleteSoundsComponent,
     DisplaySoundsComponent,

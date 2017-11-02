@@ -25,10 +25,4 @@ export class DisplaySoundsComponent implements OnInit {
                         .subscribe(sound => this.sounds = sound,
                                    err => console.log(err));
   }
-
-  onPlay(sound: Sound): void {
-    const audio = new Audio(sound.link);
-    audio.load();
-    audio.play();
-  }
 }

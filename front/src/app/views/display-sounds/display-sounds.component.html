@@ -3,9 +3,5 @@
     <input id="msg" type="text" [(ngModel)]="filterText" class="form-control" name="msg" placeholder="Ex: Emile">
 </div>
 <div *ngFor="let sound of sounds | filter:filterText; let i=index;">
-    <div style="margin-top:10px" class="col-xs-6 col-sm-3">
-        <a style="width: 100%" (click)="onPlay(sound)" role="button" class="btn btn-primary">{{sound.name}}</a>
-    </div>
-    <div class="clearfix visible-sm"></div>
-    <div class="clearfix visible-xs"></div>
+    <app-sound [sound]="sound"></app-sound>
 </div>
