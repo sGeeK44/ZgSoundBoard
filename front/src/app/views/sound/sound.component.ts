@@ -8,11 +8,36 @@ import { Sound } from '../../business/Sounds/Sound'
 })
 
 export class SoundComponent{
-    @Input() sound: Sound
+    @Input() sound: Sound;
+    isFavorite: boolean;
+    hoverFavoriteStar: false;
 
     onPlay(sound: Sound): void {
         const audio = new Audio(sound.link);
         audio.load();
         audio.play();
+    }
+
+    onChangeFavoriteStatus(event){
+        if(!this.isFavorite){
+            this.AddFavorite()
+        }
+        else{
+            this.DeleteFavorite();
+        }
+        event.stopPropagation();
+    }
+
+    AddFavorite():void{
+        console.log("add fav");
+        this.isFavorite = true;
+        console.log("star visible: "+ this.hoverFavoriteStar || this.isFavorite)
+    }
+
+    DeleteFavorite():void{
+        console.log("delete fav");
+        this.isFavorite = false;
+        this.hoverFavoriteStar = false;
+        console.log("star visible: "+ this.hoverFavoriteStar || this.isFavorite)
     }
 }
