@@ -2,6 +2,4 @@
     <span class="input-group-addon">Filtrer</span>
     <input id="msg" type="text" [(ngModel)]="filterText" class="form-control" name="msg" placeholder="Ex: Emile">
 </div>
-<div *ngFor="let sound of sounds | filter:filterText; let i=index;">
-    <app-sound [sound]="sound"></app-sound>
-</div>
+<app-sounds-list [sounds]="sounds" [filterText]="filterText"></app-sounds-list>
