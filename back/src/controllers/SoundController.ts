@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 var multiparty = require('multiparty');
 var fs = require('fs');
+import mongoose = require('mongoose');
 import { SoundRepository } from '../repository/SoundRepository';
 import { ISound } from '../interfaces/ISound';
 import container from '../ioc/container';
@@ -24,7 +25,7 @@ export class SoundController {
                 name: element.name,
                 link: "http://api.zgsoundboard.com/sound/" + element.id + "/file",
                 createdAt: element.createdAt,
-                is_favorite: element.favorite_users.find(user => user.id == authenticatedUser.id) != undefined
+                is_favorite: element.favorite_users.find(userId => userId.toString() == authenticatedUser.id) != undefined
               });
           });
           res.send(result);
@@ -50,6 +51,36 @@ export class SoundController {
         res.write(result.source);
         res.end();
       }
+      });   
+    }
+    catch (e) {
+        console.log(e);
+        res.send({"error": "error in your request"});
+    }
+  }
+  
+  public Update(req: Request, res: Response, next: NextFunction) {
+    try {      
+      var soundRepo = new SoundRepository();
+      soundRepo.findById(req.params.id, (error, result) => {
+        if(error) res.send({"error": "error"});
+        else {          
+          let authenticatedUser = container.get<IUser>(identifiers.AuthenticatedUser);
+          const sound = req.body;
+          var existing = result.favorite_users.find(userId => userId.toString() == authenticatedUser.id);
+          if (sound.is_favorite && existing == undefined) {
+            result.favorite_users.push(authenticatedUser);
+          }
+          if (!sound.is_favorite && existing != undefined) {
+            var index = result.favorite_users.indexOf(existing, 0);            
+            result.favorite_users.splice(index, 1);
+          }
+          result.save();
+          console.log(req.body);
+          console.log(result);
+          res.writeHead(200);
+          res.end();
+        }
       });   
     }
     catch (e) {

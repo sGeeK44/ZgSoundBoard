@@ -33,6 +33,10 @@ export class SoundService {
     });
   }
 
+  updateSound(sound: Sound, success: () => void, error: () => void): void {
+    this.api.update(this.resourceName, sound).subscribe(res => success(), err => error());
+  }
+
   deleteSound(id: string, success: () => void, error: () => void): void {
     this.api.delete(this.resourceName, id).subscribe(res => success(), err => error());
   }
