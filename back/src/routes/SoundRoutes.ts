@@ -13,6 +13,7 @@ export class SoundRoutes implements IRoutes {
         router.post(this.prefix, controller.Create);
         router.get(this.prefix, controller.GetAll)
         router.get(this.prefix+"/:id/file", controller.GetFile);
+        router.put(this.prefix+"/:id", controller.Update);
         router.delete(this.prefix+"/:id", controller.Delete);
     }
 }

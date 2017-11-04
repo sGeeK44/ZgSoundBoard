@@ -34,6 +34,15 @@ export class ApiClient {
         });
     }
 
+    update(resource, data) {
+        const updateUri = this.getUrl(resource) + '/' + data.id;
+        const headers = new Headers();
+        this.addOAuthHeader(headers);
+        return this.http.put(updateUri, data, {
+            headers: headers
+        });
+    }
+
     delete(resource, id) {
         const deleteUri = this.getUrl(resource) + '/' + id;
         const headers = new Headers();

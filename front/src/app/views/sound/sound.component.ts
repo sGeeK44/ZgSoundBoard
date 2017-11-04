@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Sound } from '../../business/Sounds/Sound'
+import { SoundService } from '../../business/Sounds/sound.service';
 
 @Component({
     selector: 'app-sound',
@@ -7,10 +8,12 @@ import { Sound } from '../../business/Sounds/Sound'
     styleUrls: ['./sound.component.css'],
 })
 
-export class SoundComponent{
+export class SoundComponent {
     @Input() sound: Sound;
-    isFavorite: boolean;
     hoverFavoriteStar: false;
+
+    constructor(private soundService: SoundService) {
+    }
 
     onPlay(sound: Sound): void {
         const audio = new Audio(sound.link);
@@ -18,26 +21,19 @@ export class SoundComponent{
         audio.play();
     }
 
-    onChangeFavoriteStatus(event){
-        if(!this.isFavorite){
-            this.AddFavorite()
+    onChangeFavoriteStatus(event) {
+        if (!this.sound.is_favorite) {
+            this.sound.is_favorite = true;
+        } else {
+            this.sound.is_favorite = false;
         }
-        else{
-            this.DeleteFavorite();
-        }
+
+        this.soundService.updateSound(this.sound,
+        () => {
+            console.log('Update success');
+        }, () => {
+            console.log('Update failed.');
+        });
         event.stopPropagation();
-    }
-
-    AddFavorite():void{
-        console.log("add fav");
-        this.isFavorite = true;
-        console.log("star visible: "+ this.hoverFavoriteStar || this.isFavorite)
-    }
-
-    DeleteFavorite():void{
-        console.log("delete fav");
-        this.isFavorite = false;
-        this.hoverFavoriteStar = false;
-        console.log("star visible: "+ this.hoverFavoriteStar || this.isFavorite)
     }
 }

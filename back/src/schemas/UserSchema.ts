@@ -12,7 +12,6 @@ class UserSchema{
                 required: true,
                 unique: true
             },
-            favorite_sounds: [{ type : Schema.Types.ObjectId, ref: 'Sound' }]
         })
     }
 
