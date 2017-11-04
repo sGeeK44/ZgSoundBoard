@@ -17,7 +17,8 @@ class SoundSchema {
            source: {
                type: Buffer,
                required: true
-           }
+           },
+           favorite_users: [{ type : Schema.Types.ObjectId, ref: 'User' }]
        });
        
        return schema;

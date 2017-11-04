@@ -3,15 +3,19 @@ var multiparty = require('multiparty');
 var fs = require('fs');
 import { SoundRepository } from '../repository/SoundRepository';
 import { ISound } from '../interfaces/ISound';
+import container from '../ioc/container';
+import identifiers from '../ioc/identifiers';
+import { IUser } from "../interfaces/IUser";
 
 export class SoundController {
   
   public GetAll(req: Request, res: Response, next: NextFunction) {    
-    try {      
+    try {
       var soundRepo = new SoundRepository();
       soundRepo.retrieve((error, dbResult) => {
         if(error) res.send({"error": "error"});
-        else {
+        else {          
+          let authenticatedUser = container.get<IUser>(identifiers.AuthenticatedUser);
           var result = Array<any>();
           dbResult.forEach(element => {
             result.push(
@@ -19,7 +23,8 @@ export class SoundController {
                 id: element.id,
                 name: element.name,
                 link: "http://api.zgsoundboard.com/sound/" + element.id + "/file",
-                createdAt: element.createdAt
+                createdAt: element.createdAt,
+                is_favorite: element.favorite_users.find(user => user.id == authenticatedUser.id) != undefined
               });
           });
           res.send(result);
