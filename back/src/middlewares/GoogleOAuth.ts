@@ -1,6 +1,8 @@
 import { RequestHandler } from 'express';
-import { UserRepository } from '../repository/UserRepository'
-import { IUser } from '../interfaces/IUser'
+import { UserRepository } from '../repository/UserRepository';
+import { IUser } from '../interfaces/IUser';
+import container from '../ioc/container';
+import Identifiers from '../ioc/identifiers';
 var request = require('request');
 
 export function GoogleOAuth(req, res, next) {
@@ -25,8 +27,10 @@ export function GoogleOAuth(req, res, next) {
                     }
                     else {
                         console.log("User authenticated: "+ user);
+                        container.unbindAll();
+                        container.bind<IUser>(Identifiers.AuthenticatedUser).toConstantValue(user);
                     }
-                    next();                    
+                    next();
                 });
             }
             else {
