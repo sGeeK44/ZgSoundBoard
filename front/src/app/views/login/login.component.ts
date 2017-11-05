@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone  } from '@angular/core';
 import { GoogleProfile } from '../../business/UserProfile/GoogleProfile';
 import { UserProfileService } from '../../business/UserProfile/UserProfile.service';
+import { UnknownProfile } from '../../business/UserProfile/UnknownProfile';
 declare var gapi: any;
 
 @Component({
@@ -34,6 +35,7 @@ declare var gapi: any;
     signOut() {
         const auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut();
+        this.userProfileService.Set(new UnknownProfile());
         this.logged = false;
     }
   }
