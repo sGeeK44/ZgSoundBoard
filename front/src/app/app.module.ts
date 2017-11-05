@@ -15,6 +15,7 @@ import { DeleteSoundsComponent } from './views/delete-sounds/delete-sounds.compo
 import { DisplaySoundsComponent } from './views/display-sounds/display-sounds.component';
 import { UserProfileService } from './business/UserProfile/UserProfile.service';
 import { ApiClient } from './core/ApiClient';
+import { DisplayFavoriteSoundsComponent } from './views/display-favorite-sounds/display-favorite-sounds.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ApiClient } from './core/ApiClient';
     AddSoundsComponent,
     DeleteSoundsComponent,
     DisplaySoundsComponent,
+    DisplayFavoriteSoundsComponent,
     LoginComponent
   ],
   imports: [
@@ -32,6 +34,10 @@ import { ApiClient } from './core/ApiClient';
     BrowserModule,
     FormsModule,
     RouterModule.forRoot([
+      {
+        path: 'display-favorite-sounds',
+        component: DisplayFavoriteSoundsComponent
+      },
       {
         path: 'display-sounds',
         component: DisplaySoundsComponent
@@ -44,7 +50,7 @@ import { ApiClient } from './core/ApiClient';
         path: 'delete-sounds',
         component: DeleteSoundsComponent
       },
-      { path: '',    redirectTo: '/display-sounds', pathMatch: 'full'  }
+      { path: '',    redirectTo: '/display-favorite-sounds', pathMatch: 'full'  }
     ])
   ],
   providers: [ UserProfileService, ApiClient ],

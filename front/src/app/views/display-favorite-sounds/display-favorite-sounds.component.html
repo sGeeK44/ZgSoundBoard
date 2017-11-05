@@ -1,0 +1,5 @@
+<div class="input-group" style="margin-top: 10px">
+    <span class="input-group-addon">Filtrer</span>
+    <input id="msg" type="text" [(ngModel)]="filterText" class="form-control" name="msg" placeholder="Ex: Emile">
+</div>
+<app-sounds-list [sounds]="sounds" [filterText]="filterText"></app-sounds-list>
