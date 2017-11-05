@@ -76,8 +76,6 @@ export class SoundController {
             result.favorite_users.splice(index, 1);
           }
           result.save();
-          console.log(req.body);
-          console.log(result);
           res.writeHead(200);
           res.end();
         }
