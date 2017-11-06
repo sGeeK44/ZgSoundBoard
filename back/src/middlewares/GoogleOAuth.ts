@@ -27,7 +27,6 @@ export function GoogleOAuth(req, res, next) {
                     }
                     else {
                         console.log("User authenticated: "+ user);
-                        container.unbindAll();
                         container.bind<IUser>(Identifiers.AuthenticatedUser).toConstantValue(user);
                     }
                     next();
