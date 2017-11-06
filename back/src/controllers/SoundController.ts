@@ -14,18 +14,20 @@ export class SoundController {
     try {
       var soundRepo = new SoundRepository();
       soundRepo.retrieve((error, dbResult) => {
-        if(error) res.send({"error": "error"});
+        if(error) {
+          res.send({"error": "error"});
+        }
         else {          
-          let authenticatedUser = container.get<IUser>(identifiers.AuthenticatedUser);
+          let authenticatedUser = container.getOrDefault<IUser>(identifiers.AuthenticatedUser);
           var result = Array<any>();
-          dbResult.forEach(element => {
+          dbResult.forEach(sound => {
             result.push(
               {
-                id: element.id,
-                name: element.name,
-                link: "http://api.zgsoundboard.com/sound/" + element.id + "/file",
-                createdAt: element.createdAt,
-                is_favorite: element.favorite_users.find(userId => userId.toString() == authenticatedUser.id) != undefined
+                id: sound.id,
+                name: sound.name,
+                link: "http://api.zgsoundboard.com/sound/" + sound.id + "/file",
+                createdAt: sound.createdAt,
+                is_favorite: sound.is_favorite(authenticatedUser)
               });
           });
           res.send(result);
@@ -42,15 +44,15 @@ export class SoundController {
     try {      
       var soundRepo = new SoundRepository();
       soundRepo.findById(req.params.id, (error, result) => {
-      if(error) res.send({"error": "error"});
-      else {
-        res.writeHead(200, {
-          'Content-Type': 'audio/mpeg',
-          'Content-Length': result.source.byteLength
-        });
-        res.write(result.source);
-        res.end();
-      }
+        if(error) res.send({"error": "error"});
+        else {
+          res.writeHead(200, {
+            'Content-Type': 'audio/mpeg',
+            'Content-Length': result.source.byteLength
+          });
+          res.write(result.source);
+          res.end();
+        }
       });   
     }
     catch (e) {
@@ -65,17 +67,14 @@ export class SoundController {
       soundRepo.findById(req.params.id, (error, result) => {
         if(error) res.send({"error": "error"});
         else {          
-          let authenticatedUser = container.get<IUser>(identifiers.AuthenticatedUser);
+          let authenticatedUser = container.getOrDefault<IUser>(identifiers.AuthenticatedUser);
           const sound = req.body;
-          var existing = result.favorite_users.find(userId => userId.toString() == authenticatedUser.id);
-          if (sound.is_favorite && existing == undefined) {
-            result.favorite_users.push(authenticatedUser);
+          if (sound.is_favorite) {
+            result.set_to_favorite(authenticatedUser);
           }
-          if (!sound.is_favorite && existing != undefined) {
-            var index = result.favorite_users.indexOf(existing, 0);            
-            result.favorite_users.splice(index, 1);
+          else {
+            result.unset_to_favorite(authenticatedUser);
           }
-          result.save();
           res.writeHead(200);
           res.end();
         }
