@@ -22,7 +22,7 @@ class SoundSchema {
         });
        
         schema.methods.is_favorite = function(user) {
-            return this.favorite_users.find(userId => user != undefined && userId.toString() == user.id) != undefined
+            return this.favorite_users.find(userId => user != undefined && userId != undefined && userId.toString() == user.id) != undefined
         };
        
         schema.methods.set_to_favorite = function(user) {
@@ -35,7 +35,7 @@ class SoundSchema {
         };
         
          schema.methods.unset_to_favorite = function(user) {
-            let existing = this.favorite_users.find(userId => user != undefined && userId.toString() == user.id);
+            let existing = this.favorite_users.find(userId => user != undefined && userId != undefined && userId.toString() == user.id);
             if (existing == undefined) {
                 return;
             }
