@@ -9,6 +9,7 @@ back:
         - mongo
     ports:
         - "9229:9229"
+        - "3000:3000"
 front:
     build: ./front
     volumes:
@@ -16,6 +17,8 @@ front:
         - /usr/app/front/node_modules
     links:
         - mongo
+    ports:
+        - "4200:4200"
 nginx:
     build: ./nginx
     links:

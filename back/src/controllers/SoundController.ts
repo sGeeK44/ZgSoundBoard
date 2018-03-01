@@ -25,7 +25,7 @@ export class SoundController {
               {
                 id: sound.id,
                 name: sound.name,
-                link: "http://api.zgsoundboard.com/sound/" + sound.id + "/file",
+                link: "http://prairie.zgint.eu/zgsoundboard/api/sound/" + sound.id + "/file",
                 createdAt: sound.createdAt,
                 is_favorite: sound.is_favorite(authenticatedUser)
               });
@@ -123,7 +123,7 @@ export class SoundController {
             {
               id: result.id,
               name: result.name,
-              link: "http://api.zgsoundboard.com/sound/" + result.id + "/file",
+              link: "http://prairie.zgint.eu/zgsoundboard/api/sound/" + result.id + "/file",
               createdAt: result.createdAt
             }
           });

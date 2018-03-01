@@ -7,7 +7,7 @@ export class ApiClient {
     endpoint: string;
 
     constructor(private http: Http, private userProfileService: UserProfileService) {
-        this.endpoint = 'http://api.zgsoundboard.com/';
+        this.endpoint = 'http://prairie.zgint.eu/zgsoundboard/api/';
     }
 
     addOAuthHeader(headers: Headers) {
