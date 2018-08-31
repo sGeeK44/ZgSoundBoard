@@ -1,8 +1,8 @@
 import { Injectable, NgModule } from '@angular/core';
 import { Sound } from './Sound';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+
+
 import { ApiClient } from '../../core/ApiClient';
 
 @Injectable()
