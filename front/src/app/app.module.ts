@@ -50,7 +50,11 @@ import { DisplayFavoriteSoundsComponent } from './views/display-favorite-sounds/
         path: 'delete-sounds',
         component: DeleteSoundsComponent
       },
-      { path: '',    redirectTo: '/display-favorite-sounds', pathMatch: 'full'  }
+      {
+        path: '',
+        redirectTo: '/display-favorite-sounds',
+        pathMatch: 'full'
+      }
     ])
   ],
   providers: [ UserProfileService, ApiClient ],

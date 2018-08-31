@@ -1,5 +1,6 @@
 mongo:
     image: mongo
+    user: mongodb
 back:
     build: ./back
     volumes:
